@@ -13,3 +13,6 @@ def activationFunction(activationFunctionName,inputHL):
         result=numpy.cos(inputHL)
              
     return result
+
+def softmax(inputX):
+    return numpy.exp(inputX) / numpy.sum(numpy.exp(inputX), axis=0)
