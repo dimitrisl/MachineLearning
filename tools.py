@@ -1,14 +1,15 @@
-import math
+import numpy
 
 def activationFunction(activationFunctionName,inputHL):
    
     if activationFunctionName=="logSoftPlus":
-        result=math.log(1+math.exp(inputHL))
+        result=numpy.log(1+numpy.exp(inputHL))
+        
     
     elif activationFunctionName=="tanh":
-        result=(math.exp(inputHL)-math.exp(-inputHL))/(math.exp(inputHL)+math.exp(-inputHL))
+        result=(numpy.exp(inputHL)-numpy.exp(-inputHL))/(numpy.exp(inputHL)+numpy.exp(-inputHL))
         
     elif activationFunctionName=="cosine":
-        result=math.cos(inputHL)
+        result=numpy.cos(inputHL)
              
     return result
