@@ -1,11 +1,12 @@
 import numpy
 import os
-
-
+import re
+import random
 train_path = os.path.join(os.getcwd(), "mnisttxt")
 
 train = {}
 test = {}
+labels = []
 for root, directories, files in os.walk(train_path):
     for f in files:
         name = f.replace(".txt", "")
@@ -14,9 +15,14 @@ for root, directories, files in os.walk(train_path):
         bias = numpy.array(numpy.ones(len(data)))
         if "train" in f:
             train[name] = numpy.column_stack((bias, data))
+            vc = [0 for i in range(10)]
+            label = int(re.search(r'\d+', f).group())
+            vc[label] = 1
+            labels.append(vc)
         else:
             test[name] = numpy.column_stack((bias, data))
         f1.close()
 
-
-print train["train0"][0], len(train["train0"][0])
+y_labels = numpy.array(labels)
+M = random.choice([100, 200, 300, 400, 500])
+weights1 = numpy.random.randn(len(train["train0"][0]), M)
