@@ -6,11 +6,11 @@ train_path = os.path.join(os.getcwd(), "mnisttxt")
 
 
 def getweights(nm, M):  # Random initialization of weights
-    weights1 = 0.1 * numpy.random.randn(len(X[nm][0]), M)
+    weights1 = 0.1 * numpy.random.randn(len(train[nm][0]), M)
     weights2 = 0.1 * numpy.random.randn(M+1, 10)
     return weights1, weights2
 
-X = {}  # Input training data
+train = {}  # Input training data
 test = {}
 labels = {}
 for root, directories, files in os.walk(train_path):
@@ -20,17 +20,22 @@ for root, directories, files in os.walk(train_path):
         data = [map(int, line.split(" ")) for line in f1.readlines()]
         bias = numpy.array(numpy.ones(len(data)))
         if "train" in f:
-            X[name] = numpy.column_stack((bias, data))
+            train[name] = numpy.column_stack((bias, data))
             array = [0 for i in range(10)]
             label = int(re.search(r'\d+', f).group())
             array[label] = 1
-            labels[label] = [array for i in range(len(X[name]))]
+            labels[label] = [array for i in range(len(train[name]))]
         else:
             test[name] = numpy.column_stack((bias, data))
         f1.close()
 temp = []
+X = []
 for i in range(10):
     temp.extend(labels[i])
+for i in train.keys():
+    X.extend(train[i])
+#X is the true input.
+X = numpy.array(X)
 T = numpy.array(temp)  # True labels of Training Examples
 M = random.choice([100, 200, 300, 400, 500])  # Number of units in the hidden layer
 
