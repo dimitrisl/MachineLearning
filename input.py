@@ -4,9 +4,15 @@ import re
 import random
 train_path = os.path.join(os.getcwd(), "mnisttxt")
 
+
+def getweights(nm, M):
+    weights1 = 0.1 * numpy.random.randn(len(train[nm][0]), M)
+    weights2 = 0.1 * numpy.random.randn(M+1, 10)
+    return weights1, weights2
+
 train = {}
 test = {}
-labels = []
+labels = {}
 for root, directories, files in os.walk(train_path):
     for f in files:
         name = f.replace(".txt", "")
@@ -18,12 +24,14 @@ for root, directories, files in os.walk(train_path):
             array = [0 for i in range(10)]
             label = int(re.search(r'\d+', f).group())
             array[label] = 1
-            labels.extend([array for i in range(len(train[name]))])
+            labels[label] = [array for i in range(len(train[name]))]
         else:
             test[name] = numpy.column_stack((bias, data))
         f1.close()
-
-y_labels = numpy.array(labels)
-print y_labels
+temp = []
+for i in range(10):
+    temp.extend(labels[i])
+y_labels = numpy.array(temp)
 M = random.choice([100, 200, 300, 400, 500])
-weights1 = numpy.random.randn(len(train["train0"][0]), M)
+
+weight1, weight2 = getweights("train0", M)
