@@ -4,11 +4,11 @@ import re
 import random
 
 def getweights(train,nm, M):  # Random initialization of weights
-    weights1 = 0.1 * numpy.random.randn(len(train[nm][0]), M)
-    weights2 = 0.1 * numpy.random.randn(M+1, 10)
+    weights1 = 0.1 * numpy.random.randn(M,len(train[nm][0]))
+    weights2 = 0.1 * numpy.random.randn(10,M+1)
     return weights1, weights2
 
-def inputLayer():
+def inputlayer():
     train_path = os.path.join(os.getcwd(), "mnisttxt")
     train = {}  # Input training data
     test = {}
@@ -33,13 +33,13 @@ def inputLayer():
     for i in range(10):
         temp.extend(labels[i])
     for i in train.keys():
-        X.extend("train"+str(i))
+        X.extend(train[i])
     #X is the true input.
     X = numpy.array(X)
     T = numpy.array(temp)  # True labels of Training Examples
     M = random.choice([100, 200, 300, 400, 500])  # Number of units in the hidden layer
     
     W1, W2 = getweights(train,"train0", M)  # Arrays of Weights in layer 1 and 2
-    
+
     return X,T,W1,W2                  
 

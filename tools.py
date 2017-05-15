@@ -1,7 +1,7 @@
 import numpy
 
 
-def activationFunction(activationFunctionName, inputHL):
+def activationfunction(activationFunctionName, inputHL):
    
     if activationFunctionName == "logSoftPlus":
         result = numpy.log(1+numpy.exp(inputHL))
