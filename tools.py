@@ -1,14 +1,12 @@
 import numpy
 
-
 def activationfunction(activationFunctionName, inputHL):
-   
     if activationFunctionName == "logSoftPlus":
         result = numpy.log(1+numpy.exp(inputHL))
 
     elif activationFunctionName == "tanh":
-        result = (numpy.exp(inputHL)-numpy.exp(-inputHL))/(numpy.exp(inputHL)+numpy.exp(-inputHL))
-        
+        #result = numpy.divide(numpy.exp(inputHL)-numpy.exp(-inputHL), numpy.exp(inputHL)+numpy.exp(-inputHL))
+        result = (2/(1+numpy.exp(-2*inputHL)))-1 #we use tansig for numerical stability same results as tanh
     elif activationFunctionName == "cosine":
         result = numpy.cos(inputHL)
              
@@ -16,7 +14,11 @@ def activationfunction(activationFunctionName, inputHL):
 
 
 def softmax(inputX):
-    return numpy.exp(inputX) / numpy.sum(numpy.exp(inputX), axis=0)
+    m = numpy.ndarray.max(inputX, axis=1)
+    numstab = inputX-m[:, None]
+    x_exp = numpy.exp(numstab)
+    denominator = numpy.ndarray.sum(x_exp, axis=1)
+    return x_exp/denominator[:, None]
 
 
 def gradderivatives(actFunction, z):

@@ -3,9 +3,10 @@ import os
 import re
 import random
 
-def getweights(train,nm, M):  # Random initialization of weights
-    weights1 = 0.1 * numpy.random.randn(M,len(train[nm][0]))
-    weights2 = 0.1 * numpy.random.randn(10,M+1)
+
+def getweights(train, nm, M, K=10):  # Random initialization of weights
+    weights1 = 0.1 * numpy.random.randn(M, len(train[nm][0]))
+    weights2 = 0.1 * numpy.random.randn(K, M+1)
     return weights1, weights2
 
 def inputlayer():
@@ -37,9 +38,9 @@ def inputlayer():
     #X is the true input.
     X = numpy.array(X)
     T = numpy.array(temp)  # True labels of Training Examples
-    M = random.choice([100, 200, 300, 400, 500])  # Number of units in the hidden layer
-    
+    #M = random.choice([100, 200, 300, 400, 500])  # Number of units in the hidden layer
+    M = 200
     W1, W2 = getweights(train,"train0", M)  # Arrays of Weights in layer 1 and 2
 
-    return X,T,W1,W2                  
+    return X, T, W1, W2
 
