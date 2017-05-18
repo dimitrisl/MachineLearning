@@ -15,7 +15,7 @@ def activationfunction(activationFunctionName, inputHL):
 
 def softmax(inputX):
     m = numpy.ndarray.max(inputX, axis=1)
-    numstab = inputX-m[:, None]
+    numstab = inputX-m[:, None] # a vector that numerically stabilized.
     x_exp = numpy.exp(numstab)
     denominator = numpy.ndarray.sum(x_exp, axis=1)
     return x_exp/denominator[:, None]
