@@ -2,7 +2,6 @@ import numpy
 from InputLayer import inputlayer
 from tools import activationfunction, softmax
 
-
 X, T, W1, W2 = inputlayer()
 def hiddenlayer():
     #Calculate Z1
@@ -16,3 +15,6 @@ def hiddenlayer():
 
     Y = softmax(Z2)
     return Y
+
+
+lala = hiddenlayer()

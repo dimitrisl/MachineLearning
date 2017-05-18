@@ -39,7 +39,7 @@ def inputlayer():
     X = numpy.array(X)
     T = numpy.array(temp)  # True labels of Training Examples
     #M = random.choice([100, 200, 300, 400, 500])  # Number of units in the hidden layer
-    M = 100
+    M = 500
     W1, W2 = getweights(train,"train0", M)  # Arrays of Weights in layer 1 and 2
 
     return X, T, W1, W2

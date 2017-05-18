@@ -13,7 +13,7 @@ def sumnorm(W1, W2):
 
 
 def costFunction(W1, W2, Y, T, reg=1):
-    E = np.sum(np.sum(np.log(Y).T.dot(T), axis=1))-(reg/2)*sumnorm(W1, W2)
+    E = np.sum(np.sum(np.multiply(np.log(Y), T), axis=1))-(reg/2)*sumnorm(W1, W2)
     return E
 
 X, T, W1, W2 = inputlayer()
