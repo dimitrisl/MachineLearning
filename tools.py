@@ -25,7 +25,8 @@ def softmax(inputX):
 
 def gradderivH(actFunction, z):
     if actFunction == "logSoftPlus":
-        result = (numpy.exp(z) / numpy.exp(z) + 1)
+        result = (numpy.exp(z) / (numpy.exp(z) + 1))
+        print result
     elif actFunction == 'tanh':
         # result = - (2*numpy.exp(z)/numpy.square(numpy.exp(z)+1))
         result = 1 - numpy.square(activationfunction('tanh', z))

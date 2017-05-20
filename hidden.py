@@ -13,5 +13,8 @@ def hiddenlayer():
     #Calculate Z2
     Z2 = A2.dot(W2.T)
 
-
     return Z1, H, Z2
+
+a, b, c = hiddenlayer()
+grad = gradderivH("logSoftPlus", c)
+print grad

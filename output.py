@@ -10,6 +10,7 @@ def softmax(inputX):
     denominator = np.ndarray.sum(x_exp, axis=1)
     return x_exp/denominator[:, None]
 
+
 def outputlayer():
     Z1, H, Z2 = hiddenlayer()
     Y = softmax(Z2)

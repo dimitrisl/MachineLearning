@@ -2,6 +2,7 @@ import numpy as np
 from output import outputlayer
 from InputLayer import inputlayer
 
+
 def sumnorm(W1, W2):
     squares1 = np.sum(np.square(W1), axis=0)
     sum1 = np.sum(squares1)
