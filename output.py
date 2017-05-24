@@ -13,4 +13,4 @@ def softmax(inputX):
 def outputlayer(M, function_name):
     Z1, H, Z2, input_properties = hiddenlayer(M, function_name)
     Y = softmax(Z2)
-    return Y, input_properties
+    return Y, Z1, Z2, input_properties
