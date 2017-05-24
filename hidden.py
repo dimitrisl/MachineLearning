@@ -20,4 +20,4 @@ def hiddenlayer(M, function_name):
     #Calculate Z2
     Z2 = A2.dot(W2.T)
     print Z2.shape
-    return Z1, H, Z2, (X, T, W1, W2)
+    return Z1, H, Z2, (X, T, W1, W2), A2
