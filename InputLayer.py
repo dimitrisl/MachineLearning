@@ -5,8 +5,11 @@ from sklearn import preprocessing
 import random
 
 
-def getweights(train, nm, M, K=10):  # Random initialization of weights
-    weights1 = 0.1 * numpy.random.randn(M, len(train[nm][0]))
+def getweights(train, M, K=10):  # Random initialization of weights
+    counter = 0
+    for i in train.keys():
+        counter += len(train[i][0])
+    weights1 = 0.1 * numpy.random.randn(M, counter)
     weights2 = 0.1 * numpy.random.randn(K, M+1)
     return weights1, weights2
 
@@ -34,13 +37,13 @@ def inputlayer(M):
     X = []
     for i in range(10):
         temp.extend(labels[i])
-    for i in train.keys():
-        X.extend(train[i])
+        X.extend(train["train"+str(i)])
     #X is the true input.
     X = numpy.array(X)
     T = numpy.array(temp)  # True labels of Training Examples
-    W1, W2 = getweights(train, "train0", M)  # Arrays of Weights in layer 1 and 2
+    W1, W2 = getweights(train, M)  # Arrays of Weights in layer 1 and 2
     X = preprocessing.minmax_scale(X, feature_range=(0, 1)) # scaling all the data to values from 0-1 (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
     #X_scaled = X_std * (max - min) + min
     return X, T, W1, W2
 
+inputlayer(100)
