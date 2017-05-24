@@ -10,7 +10,7 @@ def getweights(train, nm, M, K=10):  # Random initialization of weights
     weights2 = 0.1 * numpy.random.randn(K, M+1)
     return weights1, weights2
 
-def inputlayer():
+def inputlayer(M):
     train_path = os.path.join(os.getcwd(), "mnisttxt")
     train = {}  # Input training data
     test = {}
@@ -39,8 +39,6 @@ def inputlayer():
     #X is the true input.
     X = numpy.array(X)
     T = numpy.array(temp)  # True labels of Training Examples
-    #M = random.choice([100, 200, 300, 400, 500])  # Number of units in the hidden layer
-    M = 500
     W1, W2 = getweights(train, "train0", M)  # Arrays of Weights in layer 1 and 2
     X = preprocessing.minmax_scale(X, feature_range=(0, 1)) # scaling all the data to values from 0-1 (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
     #X_scaled = X_std * (max - min) + min

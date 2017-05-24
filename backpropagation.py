@@ -17,7 +17,7 @@ def out_grad_weights_w1(W2, d_out, W1 ,X, Z1 ,actFunction, reg):
     return updW1
 
 
-def backpropagate():
+def backpropagate(X, Y, T, Z1, Z2, W1, W2, d_out,actFunction):
     d_out= error_output(Y, T)
     UpdW2 = out_grad_weights_w2(Z2, W2, d_out, reg=1)
     UpdW1 = out_grad_weights_w1(W2, d_out, W1, X, Z1, actFunction, reg=1)

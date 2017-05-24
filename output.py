@@ -1,5 +1,4 @@
 import numpy as np
-from InputLayer import inputlayer
 from hidden import hiddenlayer
 
 
@@ -11,7 +10,7 @@ def softmax(inputX):
     return x_exp/denominator[:, None]
 
 
-def outputlayer():
-    Z1, H, Z2 = hiddenlayer()
+def outputlayer(M, function_name):
+    Z1, H, Z2, input_properties = hiddenlayer(M, function_name)
     Y = softmax(Z2)
-    return Y
+    return Y, input_properties
