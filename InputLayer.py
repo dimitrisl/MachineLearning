@@ -42,5 +42,3 @@ def inputlayer(M):
     X = preprocessing.minmax_scale(X, feature_range=(0, 1)) # scaling all the data to values from 0-1 (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
     #X_scaled = X_std * (max - min) + min
     return X, T, W1, W2
-
-inputlayer(100)
