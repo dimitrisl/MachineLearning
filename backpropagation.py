@@ -14,7 +14,7 @@ def out_grad_weights_w2(Z2, W2, d_out, reg):
     return UpdW2
 
 def out_grad_weights_w1(Z2, W2, d_out, reg, W1 ,X, z1 ,actFunction):
-    UpdW1=Z2.T.dot(W2).dot(gradderivH(actFunction, z1)).dot(X)-reg*W1
+    UpdW1=W2.T.dot(d_out).dot(gradderivH(actFunction, z1)).dot(X)-reg*W1
     return UpdW1
     
 def error_hidden(W2, d_out, Z1, W1, reg):
