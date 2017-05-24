@@ -6,10 +6,7 @@ import random
 
 
 def getweights(train, M, K=10):  # Random initialization of weights
-    counter = 0
-    for i in train.keys():
-        counter += len(train[i][0])
-    weights1 = 0.1 * numpy.random.randn(M, counter)
+    weights1 = 0.1 * numpy.random.randn(M, train["test0"][0])
     weights2 = 0.1 * numpy.random.randn(K, M+1)
     return weights1, weights2
 
