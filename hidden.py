@@ -1,23 +1,20 @@
 import numpy
-from InputLayer import inputlayer
-from tools import activationfunction, gradderivH
+from tools import activationfunction
 
 
-def hiddenlayer(M, function_name):
-    function_name = function_name# activation function
-    #Calculate Z1
-    X, T, W1, W2 = inputlayer(M)
-    print W1.shape
-    print X.shape
+def hiddenlayer(X, W1, function_name):
+    function_name = function_name  # activation function
+
+    # Calculate Z1 the array containing the input to the hidden unit
     Z1 = X.dot(W1.T)
-    print Z1.shape
-    #Call activation function
+    print 'Dimension of array Z1: ', Z1.shape
+
+    # Call activation function
     H = activationfunction(function_name, Z1)
-    print "to shape einai ",H.shape
+    print 'Dimension of array H after applying activation function remains: ', H.shape
+
+    # Add bias unit on hidden layer
     A2 = numpy.c_[numpy.ones((H.shape[0], 1)), H]
-    print A2.shape
-    print W2.shape
-    #Calculate Z2
-    Z2 = A2.dot(W2.T)
-    print Z2.shape
-    return Z1, H, Z2, (X, T, W1, W2), A2
+    print 'Dimension of array A2: ', A2.shape
+
+    return Z1, A2

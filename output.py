@@ -1,5 +1,4 @@
 import numpy as np
-from hidden import hiddenlayer
 
 
 def softmax(inputX):
@@ -10,7 +9,14 @@ def softmax(inputX):
     return x_exp/denominator[:, None]
 
 
-def outputlayer(M, function_name):
-    Z1, H, Z2, input_properties, A2 = hiddenlayer(M, function_name)
+def outputlayer(A2, W2):
+
+    # Calculate Z2 which is the array containing the input of the output layer
+    Z2 = A2.dot(W2.T)
+    print 'Dimension of array Z2: ', Z2.shape
+
+    # Calculate Y which is the output of the output unit after activating softmax on Z2
     Y = softmax(Z2)
-    return Y, Z1, Z2, input_properties, A2
+    print 'Dimension of array Y: ', Y.shape
+
+    return Y, Z2
