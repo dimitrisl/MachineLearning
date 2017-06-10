@@ -27,7 +27,7 @@ def out_grad_weights_w1(W2, d_out, W1, X, Z1, actFunction, reg=1):
     d_1 = np.multiply(d_out.dot(W2), grad_actfunction)
     # be careful here
     d_1 = np.delete(d_1,0,axis=1)
-    print 'Dimension of delta error hidden is ', d_1.shape, type(d_1)
+    print 'Dimension of delta error hidden is ', d_1.shape
 
     # Update rule for W1 weights
     UpdW1 = np.subtract(d_1.T.dot(X), reg*W1)

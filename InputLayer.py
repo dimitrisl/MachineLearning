@@ -2,12 +2,14 @@ import numpy
 import os
 import re
 from sklearn import preprocessing
-import random
+from numpy import random
 
 
-def getweights(train, M, K=10):  # Random initialization of weights
-    weights1 = 0.1 * numpy.random.randn(M, len(train["train0"][0]))
-    weights2 = 0.1 * numpy.random.randn(K, M+1)
+def getweights(X, M, K=10):  # Random initialization of weights
+
+    weights1 = 0.1 * numpy.random.rand(M, X.shape[1])
+    weights2 = 0.1 * numpy.random.rand(K, M+1)
+
     return weights1, weights2
 
 def inputlayer(M):
@@ -40,7 +42,7 @@ def inputlayer(M):
     # X is the array containing the input extended with the bias.
     X = numpy.array(X)
     T = numpy.array(temp)  # True labels of Training Examples
-    W1, W2 = getweights(train, M)  # Arrays of Weights in layer 1 and 2
+    W1, W2 = getweights(X, M)  # Arrays of Weights in layer 1 and 2
 
     print 'Dimension of arrays X and T are: ', X.shape, ' ', T.shape
     print 'Dimension of arrays W1 and W2 are: ', W1.shape, ' ', W2.shape

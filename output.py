@@ -1,12 +1,6 @@
 import numpy as np
+from tools import softmax
 
-
-def softmax(inputX):
-    m = np.ndarray.max(inputX, axis=1)
-    numstab = inputX-m[:, None]
-    x_exp = np.exp(numstab)
-    denominator = np.ndarray.sum(x_exp, axis=1)
-    return x_exp/denominator[:, None]
 
 
 def outputlayer(A2, W2):
