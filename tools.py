@@ -9,7 +9,7 @@ def activationfunction(activationFunctionName, inputHL):
         m = numpy.ndarray.max(inputHL)
         return m + numpy.log(numpy.exp(-m) + numpy.exp(inputHL - m))
     elif activationFunctionName == "tanh":
-        return (1-numpy.exp(numpy.multiply(-2, inputHL)))/(1+numpy.exp(numpy.multiply(-2, inputHL)))
+        return (1-numpy.exp(-2*inputHL))/(1+numpy.exp(-2*inputHL))
     elif activationFunctionName == "cosine":
         return numpy.cos(inputHL)
 
@@ -26,8 +26,7 @@ def gradderivH(actFunction, z):
     if actFunction == "logSoftPlus":
         result = (numpy.exp(z) / (numpy.exp(z) + 1))
     elif actFunction == 'tanh':
-        # result = - (2*numpy.exp(z)/numpy.square(numpy.exp(z)+1))
-        result = 1 - numpy.square(activationfunction('tanh', z))
+        result = 1 - activationfunction('tanh', z) ** 2
     elif actFunction == 'cosine':
         result = -numpy.sin(z)
     return result

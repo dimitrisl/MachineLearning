@@ -8,30 +8,25 @@ def error_output(Y, T):
     return delta_output
 
 
-def out_grad_weights_w2(W2, d_out, A2, reg=1):
+def out_grad_weights_w2(W2, d_out, A2, reg=0.1):
 
     # Update rule for W2 weights
-    UpdW2 = np.subtract(d_out.T.dot(A2), reg*W2)
-    print 'Dimension of updated W2 array is ', UpdW2.shape
+    UpdW2 = np.dot(d_out.T, A2) - reg*W2
 
     return UpdW2
 
-
-def out_grad_weights_w1(W2, d_out, W1, X, Z1, actFunction, reg=1):
+def out_grad_weights_w1(W2, d_out, W1, X, Z1, actFunction, reg=0.1):
     # Calculate derivative of activation function
     grad_actfunction = gradderivH(actFunction, Z1)
-    # Add bias
-    grad_actfunction = np.c_[np.ones((grad_actfunction.shape[0], 1)), grad_actfunction]
-    
-    # delta error on hidden layer
-    d_1 = np.multiply(d_out.dot(W2), grad_actfunction)
-    # be careful here
-    d_1 = np.delete(d_1,0,axis=1)
-    print 'Dimension of delta error hidden is ', d_1.shape
 
-    # Update rule for W1 weights
-    UpdW1 = np.subtract(d_1.T.dot(X), reg*W1)
-    print 'Dimension of updated W1 array is ', UpdW1.shape
+    #Add bias
+    #grad_actfunction = np.c_[np.ones((grad_actfunction.shape[0], 1)), grad_actfunction]
+    
+    #delta error on hidden layer
+    d_1 = np.dot(W2[:, 1:].T, d_out.T) * grad_actfunction.T
+
+    #Update rule for W1 weights
+    UpdW1 = np.dot(d_1, X) - reg*W1
     return UpdW1
 
 

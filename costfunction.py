@@ -11,7 +11,7 @@ def sumnorm(W1, W2):
     return sum1+sum2
 
 
-def costFunction(Y, T, W1, W2, reg=1):
+def costFunction(Y, T, W1, W2, reg=0.1):
 
     # Calculate cost function E
     E = np.sum(np.sum(np.multiply(np.log(Y), T), axis=1))-(reg/2)*sumnorm(W1, W2)

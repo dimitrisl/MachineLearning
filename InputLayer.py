@@ -1,6 +1,4 @@
 import numpy
-import os
-import re
 from sklearn import preprocessing
 from numpy import random
 
@@ -12,36 +10,11 @@ def getweights(X, M, K=10):  # Random initialization of weights
 
     return weights1, weights2
 
-def inputlayer(M):
+def inputlayer(M, X, T):
     # M is the number of units in the hidden layer
-    train_path = os.path.join(os.getcwd(), "mnisttxt")
-    train = {}  # Input training data
-    test = {}
-    labels = {}
-    for root, directories, files in os.walk(train_path):  # read the input files
-        for f in files:
-            name = f.replace(".txt", "")
-            f1 = open(train_path+os.sep+str(f))
-            data = [map(int, line.split(" ")) for line in f1.readlines()]
-            bias = numpy.array(numpy.ones(len(data)))
-            if "train" in f:
-                train[name] = numpy.column_stack((bias, data))
-                array = [0 for i in range(10)]
-                label = int(re.search(r'\d+', f).group())
-                array[label] = 1
-                labels[label] = [array for i in range(len(train[name]))]
-            else:
-                test[name] = numpy.column_stack((bias, data))
-            f1.close()
-    temp = []
-    X = []
-    for i in range(10):
-        temp.extend(labels[i])
-        X.extend(train["train"+str(i)])
-
     # X is the array containing the input extended with the bias.
     X = numpy.array(X)
-    T = numpy.array(temp)  # True labels of Training Examples
+    T = numpy.array(T)  # True labels of Training Examples
     W1, W2 = getweights(X, M)  # Arrays of Weights in layer 1 and 2
 
     print 'Dimension of arrays X and T are: ', X.shape, ' ', T.shape
