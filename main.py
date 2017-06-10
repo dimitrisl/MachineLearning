@@ -31,10 +31,12 @@ def load_data():
             f1.close()
     temp = []
     X = []
+    Xtest = []
     for i in range(10):
         temp.extend(labels[i])
         X.extend(train["train" + str(i)])
-    return X, temp, test
+        Xtest.extend(test["test"+str(i)])
+    return X, temp, Xtest
 
 X, T, Xtest = load_data()
 threshold = 5
@@ -53,10 +55,12 @@ for epoch in range(iter):
     Z1, A2 = hiddenlayer(X, W1, activation_function)
     Y, Z2 = outputlayer(A2, W2)
     E = costFunction(Y, T, W1, W2)
+    error = E
     print 'Error returned: ', E
     UpW2, UpW1 = backpropagate(X, Y, T, Z1, A2,  W1, W2, activation_function)
     if numpy.absolute(error - error_prev) < threshold:
         break
     W1 += n*UpW1
     W2 += n*UpW2
+    print "the difference is",numpy.absolute(error - error_prev)
     error_prev = E
