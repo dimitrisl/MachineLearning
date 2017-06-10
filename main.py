@@ -34,9 +34,9 @@ def load_data():
     for i in range(10):
         temp.extend(labels[i])
         X.extend(train["train" + str(i)])
-    return X, temp
+    return X, temp, test
 
-X, T = load_data()
+X, T, Xtest = load_data()
 threshold = 5
 
 
