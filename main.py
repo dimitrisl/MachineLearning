@@ -16,14 +16,13 @@ def compareArrays(Y,T):
         sum = 0
         for i in range(T.shape[0]):
             for j in range(T.shape[1]):
-               if T[i][j] == Y[i][j]:
-                   sum += 1
+                if T[i][j] != Y[i][j]:
+                    sum += 1
         percentage = (float(sum)/denominator)*100
         return percentage
     else:
         print "they don't have the same shape!!!"
         return "Invalid compare"
-    pass
 
 
 def load_data():
@@ -65,7 +64,7 @@ def load_data():
     return X, temp, Xtest, test_temp
 
 X, T, Xtest, labels_test = load_data()
-threshold = 5
+threshold = 0.0001
 
 labels_test = numpy.array(labels_test)
 Xtest = numpy.array(Xtest)
