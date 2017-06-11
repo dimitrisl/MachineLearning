@@ -11,17 +11,15 @@ import re
 def compareArrays(Y,T):
 
     if Y.shape == T.shape:
-        x, y = Y.shape
-        denominator = x*y
-        sum = 0
-        for i in range(T.shape[0]):
-            for j in range(T.shape[1]):
-                if T[i][j] != Y[i][j]:
-                    sum += 1
-        percentage = (float(sum)/denominator)*100
+        prediction = numpy.argmax(Y, 1)
+        diff = 0
+        for place in range(len(T)):
+            if numpy.argmax(T[place]) != prediction[place]:
+                diff += 1
+        percentage = float(diff)/len(prediction)
         return percentage
     else:
-        print "they don't have the same shape!!!"
+        print "they don't have the same shape"
         return "Invalid compare"
 
 
@@ -96,4 +94,4 @@ Z1, A2 = hiddenlayer(Xtest, W1, activation_function)
 Y, Z2 = outputlayer(A2, W2)
 #true labels of the tests is labels_tests
 
-print compareArrays(Y, labels_test)
+print "they differ by %s per cent" % (compareArrays(Y, labels_test))
