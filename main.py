@@ -3,6 +3,7 @@ from InputLayer import inputlayer
 from hidden import hiddenlayer
 from output import outputlayer
 from backpropagation import backpropagate
+from gradientCheck import gradCheck
 import numpy
 import os
 import re
@@ -69,29 +70,34 @@ Xtest = numpy.array(Xtest)
 
 activation_function = raw_input("Please choose one of the activation functions: 1)logSoftPlus 2)tanh 3)cosine : ")
 M = input("Choose the number of activation units from : 100, 200, 300, 400, 500 : ")
-error = 0
-error_prev = -numpy.inf
-X, T, W1, W2 = inputlayer(M, X, T)
-n = 0.5/X.shape[0]
-iter = 1000
-for epoch in range(iter):
-    print "-------------epoch %s-------------" %epoch
-    Z1, A2 = hiddenlayer(X, W1, activation_function)
-    Y, Z2 = outputlayer(A2, W2)
-    E = costFunction(Y, T, W1, W2)
-    error = E
-    print 'Error returned: ', E
-    UpW2, UpW1 = backpropagate(X, Y, T, Z1, A2,  W1, W2, activation_function)
-    if numpy.absolute(error - error_prev) < threshold:
-        break
-    W1 += n*UpW1
-    W2 += n*UpW2
-    print "the difference is",numpy.absolute(error - error_prev)
-    error_prev = E
 
-#after the iteration we will have the best possible weights for our neural network W1 and W2
-Z1, A2 = hiddenlayer(Xtest, W1, activation_function)
-Y, Z2 = outputlayer(A2, W2)
-#true labels of the tests is labels_tests
-
-print "they differ by %s per cent" % (compareArrays(Y, labels_test))
+gradCheckChoice=raw_input("Do you want to run gradient check?(Y/N) ")
+if gradCheckChoice.lower()=="y".lower():
+    gradCheck(activation_function, M, X, T)
+    
+#error = 0
+#error_prev = -numpy.inf
+#X, T, W1, W2 = inputlayer(M, X, T)
+#n = 0.5/X.shape[0]
+#iter = 1000
+#for epoch in range(iter):
+#    print "-------------epoch %s-------------" %epoch
+#    Z1, A2 = hiddenlayer(X, W1, activation_function)
+#    Y, Z2 = outputlayer(A2, W2)
+#    E = costFunction(Y, T, W1, W2)
+#    error = E
+#    print 'Error returned: ', E
+#    UpW2, UpW1 = backpropagate(X, Y, T, Z1, A2,  W1, W2, activation_function)
+#    if numpy.absolute(error - error_prev) < threshold:
+#        break
+#    W1 += n*UpW1
+#    W2 += n*UpW2
+#    print "the difference is",numpy.absolute(error - error_prev)
+#    error_prev = E
+#
+##after the iteration we will have the best possible weights for our neural network W1 and W2
+#Z1, A2 = hiddenlayer(Xtest, W1, activation_function)
+#Y, Z2 = outputlayer(A2, W2)
+##true labels of the tests is labels_tests
+#
+#print "they differ by %s per cent" % (compareArrays(Y, labels_test))
