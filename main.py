@@ -7,11 +7,31 @@ import numpy
 import os
 import re
 
+
+def compareArrays(Y,T):
+
+    if Y.shape == T.shape:
+        x, y = Y.shape
+        denominator = x*y
+        sum = 0
+        for i in range(T.shape[0]):
+            for j in range(T.shape[1]):
+               if T[i][j] == Y[i][j]:
+                   sum += 1
+        percentage = (float(sum)/denominator)*100
+        return percentage
+    else:
+        print "they don't have the same shape!!!"
+        return "Invalid compare"
+    pass
+
+
 def load_data():
     train_path = os.path.join(os.getcwd(), "mnisttxt")
     train = {}  # Input training data
     test = {}
     labels = {}
+    test_labels = {}
     for root, directories, files in os.walk(train_path):  # read the input files
         for f in files:
             name = f.replace(".txt", "")
@@ -28,25 +48,32 @@ def load_data():
                 labels[label] = [array for i in range(len(train[name]))]
             else:
                 test[name] = numpy.column_stack((bias, data))
+                t_array = [0 for i in range(10)]
+                test_label = int(re.search(r'\d+', f).group())
+                t_array[test_label] = 1
+                test_labels[test_label] = [t_array for element in range(len(test[name]))]
             f1.close()
     temp = []
     X = []
     Xtest = []
+    test_temp = []
     for i in range(10):
         temp.extend(labels[i])
         X.extend(train["train" + str(i)])
         Xtest.extend(test["test"+str(i)])
-    return X, temp, Xtest
+        test_temp.extend(test_labels[i])
+    return X, temp, Xtest, test_temp
 
-X, T, Xtest = load_data()
+X, T, Xtest, labels_test = load_data()
 threshold = 5
 
+labels_test = numpy.array(labels_test)
+Xtest = numpy.array(Xtest)
 
 activation_function = raw_input("Please choose one of the activation functions: 1)logSoftPlus 2)tanh 3)cosine : ")
 M = input("Choose the number of activation units from : 100, 200, 300, 400, 500 : ")
 error = 0
 error_prev = -numpy.inf
-
 X, T, W1, W2 = inputlayer(M, X, T)
 n = 0.5/X.shape[0]
 iter = 1000
@@ -64,3 +91,10 @@ for epoch in range(iter):
     W2 += n*UpW2
     print "the difference is",numpy.absolute(error - error_prev)
     error_prev = E
+
+#after the iteration we will have the best possible weights for our neural network W1 and W2
+Z1, A2 = hiddenlayer(Xtest, W1, activation_function)
+Y, Z2 = outputlayer(A2, W2)
+#true labels of the tests is labels_tests
+
+print compareArrays(Y, labels_test)
